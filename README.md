@@ -23,6 +23,51 @@ A production-grade full-stack e-commerce application featuring a minimalist stor
 
 ---
 
+## 📁 Project Structure
+
+```text
+e_commerce_assignment/
+├── client/                     # React + Vite Frontend Application
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── admin/          # Admin modals and back-office UI components
+│   │   │   ├── common/         # Button, Modal, Input, Badge, ScrollToTop
+│   │   │   ├── layout/         # Navbar, Footer, AdminLayout, StorefrontLayout
+│   │   │   └── storefront/     # HeroSection, ProductCard, CartDrawer, etc.
+│   │   ├── context/            # AuthContext, CartContext, ToastContext
+│   │   ├── lib/                # API client (fetch wrapper) and utility helpers
+│   │   ├── pages/
+│   │   │   ├── admin/          # DashboardOverview, ProductsList, CategoriesPage
+│   │   │   └── storefront/     # HomePage, CatalogPage, ProductDetailPage, TrackOrderPage
+│   │   ├── types/              # Frontend TypeScript definitions
+│   │   ├── App.tsx             # Route hierarchy and layout configuration
+│   │   └── main.tsx            # React application entry point
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── server/                     # Express + Prisma Backend API
+│   ├── prisma/
+│   │   ├── schema.prisma       # Database models and relations
+│   │   └── seed.ts             # 29 demo products & admin account seeder
+│   ├── src/
+│   │   ├── config/             # Environment variables and Prisma client
+│   │   ├── controllers/        # Request handlers (auth, products, categories, dashboard)
+│   │   ├── docs/               # Swagger OpenAPI specifications
+│   │   ├── middleware/         # Auth guard, Zod validation, global error handling
+│   │   ├── routes/             # Express API route endpoints
+│   │   ├── services/           # Business logic and database operations
+│   │   ├── utils/              # JWT, response helpers, slug generator
+│   │   ├── validators/         # Zod schemas for request validation
+│   │   ├── app.ts              # Express application configuration
+│   │   └── server.ts           # Server bootstrap and database connection
+│   ├── package.json
+│   └── tsconfig.json
+│
+└── README.md
+```
+
+---
+
 ## 📡 API Endpoints
 
 Interactive Swagger documentation is available at `http://localhost:5000/docs`.
@@ -52,7 +97,7 @@ Interactive Swagger documentation is available at `http://localhost:5000/docs`.
 
 ### 1. Prerequisites
 - Node.js (v18+) & npm
-- PostgreSQL database running locally or on the cloud (e.g. Neon.tech / Supabase)
+- PostgreSQL database running locally or in the cloud (e.g. Neon.tech / Supabase)
 
 ---
 
@@ -82,7 +127,7 @@ npx prisma db push
 npm run prisma:seed
 ```
 
-Start backend:
+Start backend server:
 ```bash
 npm run dev
 # Running at http://localhost:5000 (Swagger: http://localhost:5000/docs)
@@ -92,7 +137,7 @@ npm run dev
 
 ### 3. Frontend Setup (`/client`)
 
-In a new terminal:
+In a separate terminal:
 ```bash
 cd client
 npm install
@@ -103,7 +148,7 @@ Create `client/.env`:
 VITE_API_URL="http://localhost:5000/api"
 ```
 
-Start frontend:
+Start frontend development server:
 ```bash
 npm run dev
 # Running at http://localhost:5173
@@ -116,16 +161,3 @@ npm run dev
 - **Admin Login:** `http://localhost:5173/admin/login`
 - **Email:** `admin@nova-store.com`
 - **Password:** `AdminPassword123!`
-
----
-
-## 🚢 Production Deployment Summary
-
-1. **Database:** Create a free PostgreSQL instance on [Neon.tech](https://neon.tech) and get `DATABASE_URL`.
-2. **Backend (Render):**
-   - Root: `server` | Build: `npm install && npx prisma generate && npm run build` | Start: `npm start`
-   - Env Vars: `DATABASE_URL`, `JWT_SECRET`, `NODE_ENV=production`, `CLIENT_URL`.
-   - Seed via shell: `npx prisma db push && npm run prisma:seed`.
-3. **Frontend (Vercel):**
-   - Root: `client` | Build: `npm run build` | Output: `dist`
-   - Env Var: `VITE_API_URL="https://your-backend.onrender.com/api"`.
