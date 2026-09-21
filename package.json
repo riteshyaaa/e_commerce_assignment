@@ -1,0 +1,40 @@
+{
+  "name": "nova-modern-essentials",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NOVA - Modern Essentials Premium E-Commerce Application for HAXCAMP Assessment",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=server\" \"npm run dev --workspace=client\"",
+    "dev:server": "npm run dev --workspace=server",
+    "dev:client": "npm run dev --workspace=client",
+    "build": "npm run build --workspace=server && npm run build --workspace=client",
+    "build:server": "npm run build --workspace=server",
+    "build:client": "npm run build --workspace=client",
+    "start": "npm run start --workspace=server",
+    "prisma:generate": "npm run prisma:generate --workspace=server",
+    "prisma:migrate": "npm run prisma:migrate --workspace=server",
+    "prisma:seed": "npm run prisma:seed --workspace=server"
+  },
+  "devDependencies": {
+    "@types/recharts": "^1.8.29",
+    "concurrently": "^9.1.2"
+  },
+  "keywords": [
+    "e-commerce",
+    "react",
+    "typescript",
+    "express",
+    "prisma",
+    "postgresql",
+    "tailwind"
+  ],
+  "author": "NOVA Team",
+  "license": "ISC",
+  "dependencies": {
+    "recharts": "^3.10.1"
+  }
+}
